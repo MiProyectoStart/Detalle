@@ -10,13 +10,9 @@ export type FormState = {
 };
 
 export async function createProject(prevState: FormState, formData: FormData): Promise<FormState> {
-  
-  console.log("--- INICIANDO CREACIÓN ---");
+
   const slug = formData.get('slug') as string;
   const heroBgImage = formData.get('heroBgImage') as string;
-  
-  console.log("Slug recibido:", slug);
-  console.log("Imagen recibida:", heroBgImage ? " URL PRESENTE" : "VACÍA");
 
   if (!heroBgImage || heroBgImage === "") {
     return { error: "La imagen de fondo es obligatoria." };
@@ -50,11 +46,11 @@ export async function createProject(prevState: FormState, formData: FormData): P
         }
       }
     });
-    
-    projectSlug = project.slug;
-    console.log("✅ PROYECTO CREADO EN DB:", projectSlug);
 
-    
+    projectSlug = project.slug;
+    projectSlug = project.slug;
+
+
   } catch (e: any) {
     console.error("❌ ERROR DE PRISMA:", e.message);
     if (e.code === 'P2002') {
@@ -76,25 +72,42 @@ export async function getProjectBySlug(slug: string) {
   return await prisma.project.findUnique({
     where: { slug },
     include: {
-      letter: true, 
+      letter: true,
       gallery: {
         orderBy: {
           order: 'asc' // Los momentos aparecerán en el orden que tú decidas
         }
       },
-      timeline: { 
-        orderBy: { 
-          order: 'asc' 
-        } 
+      timeline: {
+        orderBy: {
+          order: 'asc'
+        }
       },
-      reasons: { 
-        orderBy: { reasonNumber: 'asc' } 
+      reasons: {
+        orderBy: { reasonNumber: 'asc' }
       },
       vows: true,
       bubbles: { orderBy: { order: 'asc' } },
       puzzle: true,
 
-      
+
+    }
+  });
+}
+
+// OPTIMIZED: Fetches only data needed for the landing page (excludes heavy Letter/Puzzle)
+export async function getLandingProject(slug: string) {
+  if (!slug) return null;
+
+  return await prisma.project.findUnique({
+    where: { slug },
+    include: {
+      // Exclude letter and puzzle
+      gallery: { orderBy: { order: 'asc' } },
+      timeline: { orderBy: { order: 'asc' } },
+      reasons: { orderBy: { reasonNumber: 'asc' } },
+      vows: true,
+      bubbles: { orderBy: { order: 'asc' } },
     }
   });
 }
@@ -121,7 +134,7 @@ export async function deleteProject(id: string) {
 
 export async function updateProject(id: string, formData: FormData) {
   const slug = formData.get('slug') as string;
-  
+
   try {
     await prisma.project.update({
       where: { id },
@@ -135,7 +148,7 @@ export async function updateProject(id: string, formData: FormData) {
         heroDescription: formData.get('heroDescription') as string,
         heroBgImage: formData.get('heroBgImage') as string,
         accentColor: formData.get('accentColor') as string,
-        
+
         // Usamos UPSERT para que sea a prueba de errores
         letter: {
           upsert: {
@@ -163,7 +176,7 @@ export async function updateProject(id: string, formData: FormData) {
     console.error("Error al actualizar:", e);
     return { error: "Error en la base de datos: " + e.message };
   }
-  
+
   // El redirect debe ir fuera del bloque try/catch
   redirect('/admin');
 }

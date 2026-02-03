@@ -101,7 +101,7 @@ export default function Footer({ project }: { project: any }) {
         {/* SECCIÓN INFERIOR: Copyright */}
         <div className="text-center">
           <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-medium">
-            SIEMPRE & POR SIEMPRE © {currentYear}
+            SIEMPRE Y PARA SIEMPRE © {currentYear}
           </p>
         </div>
       </div>

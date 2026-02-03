@@ -15,14 +15,13 @@ export default function Counter({ startDate }: { startDate: Date }) {
     };
 
     calculateDays();
+    // Optional: Update every minute or hour if needed, but for "days" it's fine once.
   }, [startDate]);
 
+  // Use suppressHydrationWarning to avoid mismatches if SSR differs from Client (though 0 is initial)
   return (
-    <div className="text-center">
-      <h2 className="text-[12vw] sm:text-5xl md:text-6xl lg:text-8xl font-bold mt-2">
-        {days.toLocaleString()} Días
-      </h2>
-      
-    </div>
+    <span suppressHydrationWarning>
+      {days.toLocaleString()} Días
+    </span>
   );
 }
