@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+
+generator client {
+  provider = "prisma-client-js"
+
+}
+
+datasource db {
+  provider = "postgresql"
+  
+  
+}
+
+//Tabla 1, la principal
+
+model Project {
+  id String @id @default(uuid())
+  slug String @unique //URL personalizada para cada uno de los clientes
+  planType String @default("BASIC") //Manejo de planes
+  coupleNames String // nombres de personas
+  namesLogo String //Iniciales para el Logo 
+  startDate DateTime //Calcular dias juntos
+  heroTitle String //Titulo principal
+  heroDescription String
+  heroBgImage String
+  
+  accentColor String //Color HEX de toda la webe
+
+  //Seccion de la musica
+
+  showSoundtrack Boolean @default(false)
+  spotifyTrackId String? // Id de spotifyTrackId
+  soundtrackIntro String? 
+
+
+  //Footer
+  footerSubtitle String
+  footerNames String
+  createdAt DateTime @default(now())
+
+
+
+  //Relaciones 1:1
+
+  letter LoveLetter?  //carta
+  gallery GalleryMoment[]  //galeria
+  timeline         TimelineEvent[]  //linea de tiempo
+  reasons          ReasonToLove[] //razones por las que te amo
+  photoStack       PhotoStack[] //banner
+  vows             FutureVow[] //promesas de futuro
+  bubbles          LoveBubble[] // amo de ti
+  puzzle           PuzzleGame?
+}
+
+
+//2. Carta de amor 
+
+model LoveLetter {
+  id String @id @default(uuid())
+  projectId String @unique
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title String
+  subtitle String?
+  content String @db.Text //cuerpo extenso de la carta
+  farewellPhrase String
+  senderName String //firma
+}
+
+
+// 3. Galería de Momentos (Abre página nueva por foto)
+model GalleryMoment {
+  id          String  @id @default(uuid())
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  imageUrl    String  // URL de Cloudinary
+  title       String  // Título en la miniatura
+  description String  @db.Text // Texto de la página individual
+  order       Int     @default(0) // Orden de aparición
+}
+
+// 4. Línea de Tiempo (Nuestro Viaje)
+model TimelineEvent {
+  id          String  @id @default(uuid())
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  eventDate   String  // Texto de la fecha (ej: "Enero 2022")
+  title       String  // Título del hito
+  description String  @db.Text // Párrafo del recuerdo
+  imageUrl    String  // Foto del hito
+  order       Int     @default(0)
+}
+
+// 5. 10 Razones por las que te Amo (Flip Cards)
+model ReasonToLove {
+  id           String  @id @default(uuid())
+  projectId    String
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  reasonNumber String  // El número visual (01, 02...)
+  iconName     String  // Nombre del icono (heart, star, etc.)
+  title        String  // Texto frontal
+  description  String  @db.Text // Texto revelado al girar
+}
+
+// 6. Momentots (Pila de hasta 5 fotos)
+model PhotoStack {
+  id        String  @id @default(uuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  imageUrl  String  // URL de Cloudinary
+  order     Int     @default(0) // Control de capas de la pila
+}
+
+// 7. Nuestros Votos (Mirando al Futuro)
+model FutureVow {
+  id           String  @id @default(uuid())
+  projectId    String
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  iconName     String  // Icono de la promesa
+  promiseText  String  @db.Text // Texto en cursiva
+  keywordValue String  // Palabra clave (LEALTAD, HOGAR)
+}
+
+// 8. Lo que amo de ti (Burbujas flotantes)
+model LoveBubble {
+  id           String  @id @default(uuid())
+  projectId    String
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  imageUrl     String  // Imagen frontal del círculo
+  revealedText String  @db.Text // Texto revelado al dar clic
+  order        Int     @default(0)
+}
+
+
+//9
+
+model PuzzleGame {
+  id        String   @id @default(uuid())
+  projectId String   @unique
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  imageUrl  String   // La foto que el admin sube para el rompecabezas
+  gridSize  Int      @default(4) // 4x4 por defecto como en la imagen
+  createdAt DateTime @default(now())
+}
