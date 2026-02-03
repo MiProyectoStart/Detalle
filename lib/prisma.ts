@@ -11,6 +11,10 @@ const pool = new Pool({
   },
 });
 
+if (process.env.DATABASE_URL?.includes("@base")) {
+  console.warn("\n⚠️  ADVERTENCIA: DATABASE_URL apunta a 'base'. Si no estás en Docker, esto fallará.\n");
+}
+
 const adapter = new PrismaPg(pool);
 
 const prismaClientSingleton = () => {

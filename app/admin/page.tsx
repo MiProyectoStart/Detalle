@@ -3,12 +3,13 @@ import { getAllProjects, deleteProject } from '@/actions/project';
 import Link from 'next/link';
 import { Edit, Trash2, Plus, ExternalLink, Layers } from 'lucide-react'; // Añadido Layers
 
-export const dynamic = 'force-dynamic';  // Desactiva SSG/SSR
-// o
-export const revalidate = 0;  // Similar efecto
+export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  const projects = await getAllProjects();
+  const projects = await getAllProjects().catch((error) => {
+    console.error("Error fetching projects during render:", error);
+    return [];
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white p-8">
@@ -44,9 +45,9 @@ export default async function AdminDashboard() {
                 </Link>
 
                 {/* NUEVO BOTÓN: GESTIONAR SECCIONES (Galería, Razones, etc.) */}
-                <Link 
-                  href={`/admin/${project.slug}`} 
-                  className="p-3 bg-white/5 hover:bg-blue-500/20 rounded-xl transition text-gray-400 hover:text-blue-400" 
+                <Link
+                  href={`/admin/${project.slug}`}
+                  className="p-3 bg-white/5 hover:bg-blue-500/20 rounded-xl transition text-gray-400 hover:text-blue-400"
                   title="Gestionar Secciones"
                 >
                   <Layers size={20} />
