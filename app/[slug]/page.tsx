@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="relative z-10 flex flex-col min-h-screen">
           
           {/* A. NAVBAR: Dentro del flujo del Hero */}
-          <Navbar logo={project.namesLogo} />
+          <Navbar logo={project.namesLogo} slug={slug} />
 
           {/* B. CONTENIDO CENTRAL: flex-1 lo centra verticalmente en el espacio sobrante */}
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 w-full items-center px-6 sm:px-12 lg:px-20 py-24 lg:py-0">

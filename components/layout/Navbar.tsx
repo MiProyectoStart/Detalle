@@ -3,8 +3,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, CalendarHeart, Music  } from 'lucide-react';
+import Link from 'next/link';
 
-export default function Navbar({ logo }: { logo: string }) {
+
+
+export default function Navbar({ logo, slug }: { logo: string, slug: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
@@ -99,9 +102,11 @@ export default function Navbar({ logo }: { logo: string }) {
           </a>
 
 
-          <button className="hidden lg:block px-8 py-2.5 bg-accent rounded-full font-bold text-sm text-white hover:opacity-90 transition shadow-lg shadow-accent-500/20">
-            Abrir
-          </button>
+          <Link href={`/${slug}/juego`}>
+            <button className="hidden lg:block px-8 py-2.5 bg-accent rounded-full font-bold text-sm text-white hover:opacity-90 transition shadow-lg shadow-accent-500/20">
+              Jugar
+            </button>
+          </Link>
           
           <button className="lg:hidden text-white p-1" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -123,9 +128,11 @@ export default function Navbar({ logo }: { logo: string }) {
                 {link.name}
               </a>
             ))}
-            <button className="w-full py-4 bg-accent rounded-2xl font-bold text-base text-white shadow-xl mt-4">
-              Abrir Proyecto
-            </button>
+            <Link href={`/${slug}/juego`} onClick={() => setIsOpen(false)}>
+                <button className="w-full py-4 bg-accent rounded-2xl font-bold text-base text-white shadow-xl mt-4">
+                  Jugar 
+                </button>
+            </Link>
           </div>
         )}
       </nav>

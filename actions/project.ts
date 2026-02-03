@@ -92,7 +92,7 @@ export async function getProjectBySlug(slug: string) {
       },
       vows: true,
       bubbles: { orderBy: { order: 'asc' } },
-      
+      puzzle: true,
 
       
     }

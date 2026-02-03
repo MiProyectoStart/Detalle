@@ -25,7 +25,7 @@ import BubbleList from "@/components/admin/BubbleList";
 import AddBubbleForm from "@/components/admin/AddBubbleForm";
 import SoundtrackForm from "@/components/admin/SoundtrackForm";
 import FooterForm from "@/components/admin/FooterForm";
-
+import AddPuzzleForm from "@/components/admin/AddPuzzleForm";
 
 export default async function AdminProjectPage({
   params,
@@ -87,7 +87,7 @@ export default async function AdminProjectPage({
             <AddReasonForm projectId={project.id} />
             <AddVowForm projectId={project.id} />
             <AddBubbleForm projectId={project.id} />
-
+            <AddPuzzleForm project={project} />
             <FooterForm project={project}/>
           </section>
         </div>
