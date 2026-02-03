@@ -3,6 +3,10 @@ import { getAllProjects, deleteProject } from '@/actions/project';
 import Link from 'next/link';
 import { Edit, Trash2, Plus, ExternalLink, Layers } from 'lucide-react'; // Añadido Layers
 
+export const dynamic = 'force-dynamic';  // Desactiva SSG/SSR
+// o
+export const revalidate = 0;  // Similar efecto
+
 export default async function AdminDashboard() {
   const projects = await getAllProjects();
 
