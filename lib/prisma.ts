@@ -9,6 +9,9 @@ const pool = new Pool({
   ssl: {
     rejectUnauthorized: false,
   },
+  max: process.env.NODE_ENV === 'production' ? 1 : 10, // Limit connections in production to prevent pool exhaustion
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
 });
 
 if (process.env.DATABASE_URL?.includes("@base")) {
