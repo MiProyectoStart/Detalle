@@ -2,43 +2,69 @@
 'use client'
 import { motion } from 'framer-motion';
 import ReasonCard from './ReasonCard';
+import { Heart } from 'lucide-react';
 
 export default function ReasonsSection({ reasons }: { reasons: any[] }) {
-  if (reasons.length === 0) return null;
+  if (!reasons || reasons.length === 0) return null;
 
-  // Ordenamos por número por si acaso
-  const sortedReasons = [...reasons].sort((a, b) => parseInt(a.reasonNumber) - parseInt(b.reasonNumber));
+  const sortedReasons = [...reasons].sort((a, b) => 
+    (parseInt(a.reasonNumber) || 0) - (parseInt(b.reasonNumber) || 0)
+  );
 
   return (
-    <section id="razones" className="py-24 mt-8 px-6 md:px-12 lg:px-20 bg-[#050505]">
-      <div className="max-w-[1400px] mx-auto space-y-16 ">
+    <section id="razones" className="relative py-20 md:py-32 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#050505] overflow-hidden z-0">
+      
+      {/* Luces Ambientales */}
+      <div className="absolute top-0 right-0 w-[200 md:300px] h-[200 md:300px] bg-accent/10 blur-[80 md:120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[200 md:300px] h-[200 md:300px] bg-pink-500/5 blur-[80 md:120px] pointer-events-none" />
+
+      <div className="max-w-[1500px] mx-auto relative z-10">
         
-        {/* Cabecera inspirada en la imagen */}
-        <div className="text-center space-y-6 max-w-3xl mx-auto ">
-          <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white">
-            10 Razones por las que te Amo
+        {/* Cabecera Responsiva */}
+        <div className="flex flex-col items-center gap-4 mb-12 md:mb-20 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
+            {reasons.length} motivos por los que <br />
+            <span className="italic font-serif text-accent md:text-white">te elijo a ti</span>
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed font-medium">
-            Cada tarjeta guarda un secreto de por qué eres la persona más especial en mi vida. 
-            <span className="text-accent"> Haz clic en cada una para descubrirlas todas.</span>
+
+          <p className="text-gray-400 text-sm md:text-base font-medium max-w-2xl leading-relaxed flex flex-wrap items-center justify-center gap-2">
+            <span>Toca cada tarjeta para leer porque eres la persona más especial en mi vida</span>
+        
           </p>
         </div>
 
-        {/* Grid de 5 columnas como en la referencia */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
-          {sortedReasons.map((reason, index) => (
+        {/* Grid Inteligente: 2 cols en móvil, 3 en tablet, 5 en desktop */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 lg:gap-8 xl:gap-10"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.05 }
+            }
+          }}
+        >
+          {sortedReasons.map((reason) => (
             <motion.div
               key={reason.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.5 }}
-              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 }
+              }}
             >
               <ReasonCard reason={reason} />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
+        <div className="mt-32 text-center">
+            <p className="text-[9px] uppercase tracking-[0.8em] text-white/20 font-black">
+              Y mil razones más que no caben aquí
+            </p>
+        </div>
       </div>
     </section>
   );

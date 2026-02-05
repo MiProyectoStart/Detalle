@@ -124,6 +124,8 @@ export default function BubbleCard({ bubble, index, size, className }: BubbleCar
               <div className="pt-4 border-t border-white/10">
                 <span className="text-accent/70 text-sm font-medium">
                   Razón #{index + 1}
+
+                  
                 </span>
               </div>
             </div>

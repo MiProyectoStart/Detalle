@@ -26,7 +26,7 @@ export default function SoundtrackSection({ project }: { project: any }) {
           >
             <div className="flex items-center gap-3 text-white">
               <Sparkles size={16} className="animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.5em]">Music Experience</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em]">Experiencia de música</span>
             </div>
 
             <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white leading-none">
