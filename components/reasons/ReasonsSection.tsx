@@ -3,6 +3,11 @@
 import { motion } from 'framer-motion';
 import ReasonCard from './ReasonCard';
 import { Heart } from 'lucide-react';
+// app/fonts.ts
+import { playfair } from '@/app/fonts';
+
+
+
 
 export default function ReasonsSection({ reasons }: { reasons: any[] }) {
   if (!reasons || reasons.length === 0) return null;
@@ -12,9 +17,10 @@ export default function ReasonsSection({ reasons }: { reasons: any[] }) {
   );
 
   return (
-    <section id="razones" className="relative py-20 md:py-32 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#050505] overflow-hidden z-0">
+    <section id="razones" className="relative py-12 md:py-24 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#050505] overflow-hidden z-0">
       
       {/* Luces Ambientales */}
+      
       <div className="absolute top-0 right-0 w-[200 md:300px] h-[200 md:300px] bg-accent/10 blur-[80 md:120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[200 md:300px] h-[200 md:300px] bg-pink-500/5 blur-[80 md:120px] pointer-events-none" />
 
@@ -24,13 +30,16 @@ export default function ReasonsSection({ reasons }: { reasons: any[] }) {
         <div className="flex flex-col items-center gap-4 mb-12 md:mb-20 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
             {reasons.length} motivos por los que <br />
-            <span className="italic font-serif text-accent md:text-white">te elijo a ti</span>
+            <span className={`italic font-serif text-accent md:text-white ${playfair.className}`} >te elijo a ti</span>
           </h2>
 
-          <p className="text-gray-400 text-sm md:text-base font-medium max-w-2xl leading-relaxed flex flex-wrap items-center justify-center gap-2">
-            <span>Toca cada tarjeta para leer porque eres la persona más especial en mi vida</span>
+          
+
+          <p className={`text-gray-400 text-[16px] mt-1`}>
+            <span>Toca cada una de las tarjetas para leer porque eres la persona más especial en mi vida</span>
         
           </p>
+
         </div>
 
         {/* Grid Inteligente: 2 cols en móvil, 3 en tablet, 5 en desktop */}
@@ -60,7 +69,7 @@ export default function ReasonsSection({ reasons }: { reasons: any[] }) {
           ))}
         </motion.div>
 
-        <div className="mt-32 text-center">
+        <div className="mt-16 text-center">
             <p className="text-[9px] uppercase tracking-[0.8em] text-white/20 font-black">
               Y mil razones más que no caben aquí
             </p>

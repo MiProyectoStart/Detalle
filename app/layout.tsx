@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { playfair } from "./fonts";
+import { playfair, poppins  } from "./fonts";
 // 1. Configuración de fuentes
 
 

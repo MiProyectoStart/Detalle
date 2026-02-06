@@ -4,6 +4,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import * as LucideIcons from 'lucide-react'
+import { poppins, cormorant } from '@/app/fonts'
+
 
 export default function ReasonCard({ reason }: { reason: any }) {
   const [isFlipped, setIsFlipped] = useState(false)
@@ -46,7 +48,9 @@ export default function ReasonCard({ reason }: { reason: any }) {
 
           {/* Título */}
           <div className="z-10 space-y-2">
-            <h3 className="text-base sm:text-xl lg:text-2xl font-serif italic text-white/95 leading-tight text-balance">
+
+            {/* <p className={`text-gray-400 text-[16px] mt-4 ${playfair.className}`}></p> */}
+            <h3 className={`text-base sm:text-md lg:text-xl ${cormorant.className}  text-white  leading-tight text-balance `}>
               {reason.title}
             </h3>
             <div className="w-6 h-[1.5px] bg-accent rounded-full group-hover:w-full transition-all duration-500" />
@@ -58,7 +62,7 @@ export default function ReasonCard({ reason }: { reason: any }) {
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
           className="absolute inset-0 w-full h-full rounded-[1.5rem] sm:rounded-[2rem] bg-[#080808] border border-accent p-6 sm:p-8 flex flex-col items-center justify-center text-center overflow-hidden shadow-inner"
         >
-          <LucideIcons.Quote size={20} className="text-accent mb-4 opacity-40" />
+          <LucideIcons.Quote size={20} className="text-white mb-4 opacity-40" />
           
           <p className="text-xs sm:text-sm md:text-base text-gray-200 font-light leading-relaxed italic px-1">
             "{reason.description}"
