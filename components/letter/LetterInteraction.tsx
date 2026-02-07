@@ -23,7 +23,7 @@ export default function LetterInteraction({ letter, slug }: { letter: any , slug
           <ArrowLeft size={18} />
         </div>
         <span className="text-[10px] uppercase tracking-[0.4em] font-bold hidden sm:block">
-          Volver al proyecto
+          Volver
         </span>
       </Link>
 

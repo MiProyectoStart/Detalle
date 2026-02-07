@@ -24,7 +24,7 @@ export default function TimelineSection({ events }: { events: any[] }) {
   if (events.length === 0) return null;
 
   return (
-    <section id="tiempo" ref={containerRef} className="py-0 bg-[#050505] relative overflow-hidden">
+    <section id="tiempo" ref={containerRef} className="py-0 bg-[#050505] relative overflow-hidden z-0">
       {/* Título de Sección */}
       <div className="px-6 md:px-20 mb-20 text-center ">
         <p className="text-white font-bold tracking-[0.6em] text-[10px] uppercase mb-4">Linea del tiempo</p>

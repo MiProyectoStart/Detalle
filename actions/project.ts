@@ -80,7 +80,7 @@ export async function getProjectBySlug(slug: string) {
       },
       timeline: {
         orderBy: {
-          order: 'asc'
+          createdAt: 'asc'
         }
       },
       reasons: {
@@ -104,7 +104,7 @@ export async function getLandingProject(slug: string) {
     include: {
       // Exclude letter and puzzle
       gallery: { orderBy: { order: 'asc' } },
-      timeline: { orderBy: { order: 'asc' } },
+      timeline: { orderBy: { createdAt: 'asc' } },
       reasons: { orderBy: { reasonNumber: 'asc' } },
       vows: true,
       bubbles: { orderBy: { order: 'asc' } },

@@ -94,6 +94,7 @@ model TimelineEvent {
   description String  @db.Text // Párrafo del recuerdo
   imageUrl    String  // Foto del hito
   order       Int     @default(0)
+  createdAt   DateTime @default(now())
 }
 
 // 5. 10 Razones por las que te Amo (Flip Cards)

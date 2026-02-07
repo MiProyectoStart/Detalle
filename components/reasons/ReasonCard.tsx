@@ -50,7 +50,7 @@ export default function ReasonCard({ reason }: { reason: any }) {
           <div className="z-10 space-y-2">
 
             {/* <p className={`text-gray-400 text-[16px] mt-4 ${playfair.className}`}></p> */}
-            <h3 className={`text-base sm:text-md lg:text-xl ${cormorant.className}  text-white  leading-tight text-balance `}>
+            <h3 className={`text-base sm:text-md lg:text-xl ${cormorant.className} text-white  leading-tight text-balance `}>
               {reason.title}
             </h3>
             <div className="w-6 h-[1.5px] bg-accent rounded-full group-hover:w-full transition-all duration-500" />

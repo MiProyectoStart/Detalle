@@ -14,6 +14,7 @@ export async function addTimelineEvent(projectId: string, formData: FormData) {
         description: formData.get('description') as string,
         imageUrl: formData.get('imageUrl') as string,
         order: 0,
+        
       }
     });
     revalidatePath(`/admin/[slug]`);
